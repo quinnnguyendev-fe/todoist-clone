@@ -1,0 +1,95 @@
+.item {
+  padding: 10px 0;
+  .wrapper {
+    @include flexBetween();
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  &-status {
+    position: relative;
+    display: block;
+    border-radius: 100px;
+    border: 1px solid $txt-placeholder;
+    width: 18px;
+    height: 18px;
+
+    svg {
+      display: none;
+    }
+
+    &.completed {
+      cursor: pointer;
+      svg {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        text-align: center;
+        color: $txt-placeholder;
+      }
+    }
+  }
+
+  &-content {
+    position: relative;
+    flex: 1;
+
+    .title {
+      @include fontlhw(16px, 1.2, 600);
+    }
+
+    .description {
+      @include font(14px, 1.2, $txt-tertiary);
+      margin-top: 4px;
+    }
+
+    .actions {
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      right: 0;
+      @include inlineFlexCenter;
+      background-color: $bg-white;
+      gap: 4px;
+
+      button {
+        display: flex;
+        padding: 2px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $hover-secondary;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+
+  &-other {
+    @include flexAlign;
+    margin-left: 20px;
+    margin-top: 8px;
+
+    button {
+      font-size: 14px;
+    }
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $border-primary;
+  }
+
+  &:hover {
+    cursor: pointer;
+    .actions {
+      visibility: visible;
+    }
+  }
+
+  &:has(.completed) {
+    color: $bg-primary;
+  }
+}

@@ -1,0 +1,8 @@
+.footer {
+
+    &-item {
+        @include flexAlign(center);
+        gap: 6px;
+        padding: 10px;
+    }
+}

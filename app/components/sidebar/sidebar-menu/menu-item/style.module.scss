@@ -1,0 +1,52 @@
+.item {
+  @include flexBetween;
+  margin: 0 10px;
+
+  &:first-child {
+    svg,
+    span {
+      color: $bg-primary;
+      font-weight: 600;
+    }
+  }
+
+  &-content {
+    @include flexAlign(center);
+    gap: 6px;
+    flex: 1;
+  }
+
+  &-wrapper {
+    @include flexBetween;
+    flex: 1;
+    padding: 5px 10px;
+    border-radius: 6px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $hover-secondary;
+    }
+  }
+
+  &-suffix {
+    @include inlineFlexCenter;
+    padding: 4px;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: $bg-secondary;
+    }
+  }
+
+  &.active {
+
+    .item-wrapper {
+      background-color: $hover-primary;
+    }
+    
+    svg,
+    span {
+      color: $bg-primary;
+    }
+  }
+}

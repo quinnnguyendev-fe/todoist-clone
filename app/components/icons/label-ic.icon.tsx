@@ -1,0 +1,22 @@
+type Props = {
+  size?: number
+}
+
+export const LabelIC = (props: Props) => {
+  return <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={props.size || 16}
+    height={props.size || 16}
+    fill="none"
+    viewBox="0 0 16 16"
+  >
+    <path
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M7.828 2H12a2 2 0 0 1 2 2v4.172a2 2 0 0 1-.586 1.414l-4 4a2 2 0 0 1-2.828 0L2.414 9.414a2 2 0 0 1 0-2.828l4-4A2 2 0 0 1 7.828 2m0 1a1 1 0 0 0-.707.293l-4 4a1 1 0 0 0 0 1.414l4.172 4.172a1 1 0 0 0 1.414 0l4-4A1 1 0 0 0 13 8.172V4a1 1 0 0 0-1-1zM10 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2"
+      clipRule="evenodd"
+    />
+  </svg>
+
+
+}

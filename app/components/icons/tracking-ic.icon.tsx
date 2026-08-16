@@ -1,0 +1,23 @@
+type Props = {
+    size?: number
+}
+
+export const TrackingIC = (props: Props) => {
+    return <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={props.size || 24}
+      height={props.size || 24}
+      fill="none"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M6 5h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v5h2.691l1.362-2.724a.5.5 0 0 1 .917.053l1.473 4.05 1.576-5.516a.5.5 0 0 1 .938-.066L15.825 12H19V7a1 1 0 0 0-1-1zm13 7h-3.5a.5.5 0 0 1-.457-.297l-1.44-3.241-1.622 5.675a.5.5 0 0 1-.95.034l-1.604-4.408-.98 1.96A.5.5 0 0 1 8 13H5v4a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"
+        clipRule="evenodd"
+      />
+    </svg>
+
+
+}

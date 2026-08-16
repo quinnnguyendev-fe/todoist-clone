@@ -1,0 +1,85 @@
+.editor {
+  &-content {
+    padding: 16px;
+
+    .group {
+      @include flexBetween;
+
+      .input {
+        flex: 1;
+
+        &-title {
+          width: 100%;
+
+          &::placeholder {
+            @include fontfull(18px, 1, $txt-placeholder, 600);
+          }
+        }
+      }
+
+      .actions {
+        @include inlineFlexCenter;
+
+        button {
+          position: relative;
+          padding: 2px;
+          border-radius: 4px;
+          &:hover {
+            background-color: $bg-secondary;
+          }
+        }
+      }
+    }
+
+    .input {
+      width: 100%;
+      margin-top: 6px;
+
+      &-subtitle {
+        width: 100%;
+
+        &::placeholder {
+          @include font(14px, 1, $txt-placeholder);
+        }
+      }
+    }
+
+    .buttons {
+      position: relative;
+      margin-top: 8px;
+
+      button:not(:first-child) {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  &-footer {
+    @include flexBetween;
+    border-top: 1px solid $bg-secondary;
+    padding: 16px;
+
+    .dropdown {
+      &-selector {
+        @include inlineFlexCenter;
+        gap: 4px;
+        padding: 6px 4px;
+        border-radius: 4px;
+
+        span {
+          @include font(14px, 1, $txt-tertiary);
+        }
+
+        &:hover {
+          background-color: $hover-tertiary;
+        }
+      }
+    }
+
+    .actions {
+      &>*:not(:last-child) {
+        margin-right: 6px;
+      }
+    }
+  }
+}

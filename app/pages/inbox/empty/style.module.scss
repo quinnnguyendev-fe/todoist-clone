@@ -1,0 +1,22 @@
+.empty {
+  @include flexColumn;
+  gap: 20px;
+  width: 100%;
+  max-width: 360px;
+  margin: 50px auto;
+  text-align: center;
+
+  &-title {
+    @include fontfull(18px, 1, $txt-default, 600);
+  }
+
+  &-description {
+    @include font(16px, 1, $txt-button);
+    margin: 0 60px;
+  }
+
+  button {
+    width: fit-content;
+    margin: 0 auto;
+  }
+}

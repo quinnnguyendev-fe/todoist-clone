@@ -1,0 +1,7 @@
+.sidebar {
+    @include flexColumn();
+    width: 20%;
+    max-width: 280px;
+    height: 100vh;
+    background-color: $bg-nav;
+}

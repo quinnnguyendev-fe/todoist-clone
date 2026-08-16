@@ -1,0 +1,10 @@
+@use '@/styles/main.scss';
+
+.layout {
+    display: flex;
+    gap: 10px;
+}
+
+main {
+    flex: 1;
+}

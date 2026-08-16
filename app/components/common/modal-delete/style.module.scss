@@ -1,0 +1,26 @@
+.delete {
+    position: relative;
+
+    &-content {
+        padding: 20px;
+        .title {
+            @include fontfull(16px, 1, $txt-default, 600);
+        }
+        .description {
+            @include fontlhw(12px, 1, $txt-button);
+            margin-top: 6px;
+
+            span {
+                font-size: 14px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    &-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 20px;
+    }
+}

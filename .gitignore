@@ -1,7 +1,21 @@
-.DS_Store
+# Dependencies
+node_modules/
+
+# Environment variables
 .env
-/node_modules/
+.env.*
+!.env.example
+
+# Build
+dist/
+build/
 
 # React Router
-/.react-router/
-/build/
+.react-router/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/

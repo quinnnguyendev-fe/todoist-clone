@@ -1,0 +1,22 @@
+.header {
+    position: relative;
+    @include flexBetween();
+    padding: 12px;
+
+    &-actions {
+        :not(:last-child) {
+            margin-right: 8px;
+        }
+
+        button {
+            @include inlineFlexCenter;
+            padding: 2px;
+            border-radius: 4px;
+            width: 32px;
+            height: 32px;
+            &:hover {
+                background-color: $bg-secondary;
+            }
+        }
+    }
+}
