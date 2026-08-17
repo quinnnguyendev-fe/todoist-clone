@@ -4,6 +4,7 @@ import { TaskEditor, type TaskType } from "../task-editor";
 import { todoApi } from "@/api";
 import { format } from "date-fns";
 import { addTask } from "@/store/tasks/task.slice";
+import { useNavigate } from "react-router";
 
 type ModalAddTaskProps = {
   isOpen: boolean;
@@ -12,7 +13,7 @@ type ModalAddTaskProps = {
 
 export const ModalAddTask = ({ isOpen, setOpen }: ModalAddTaskProps) => {
 
-  
+  const navigate = useNavigate();
   const dispatch = useAppDispatch()
   const handleAddTask = async ({title, description, date, priority}: TaskType) => {
     try {
@@ -25,6 +26,7 @@ export const ModalAddTask = ({ isOpen, setOpen }: ModalAddTaskProps) => {
 
       dispatch(addTask(newTask))
       setOpen(false)
+      navigate("/inbox");
     } catch(error) {
       alert(error)
     }
