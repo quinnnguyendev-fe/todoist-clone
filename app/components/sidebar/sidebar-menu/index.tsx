@@ -13,8 +13,6 @@ import { useState } from "react";
 import { ModalAddTask } from "@/components/common/modal-add-task";
 
 export const SidebarMenu = () => {
-  const navigate = useNavigate();
-  const [itemActive, setItemActive] = useState<string>("Add task");
   const [isOpen, setOpen] = useState<boolean>(false);
 
   const MENUS = [
@@ -24,7 +22,7 @@ export const SidebarMenu = () => {
       suffixIcon: <WaveIC />,
       activeable: true,
       action: () => {
-        setOpen(true)
+        setOpen(true);
       },
     },
     {
@@ -38,44 +36,30 @@ export const SidebarMenu = () => {
     {
       title: "Inbox",
       icon: <InboxIC />,
-      activeable: false,
+      to: "/inbox",
       count: 3,
-      action: () => {
-        navigate("/inbox");
-      },
     },
     {
       title: "Today",
       icon: <CalendarIC />,
       activeable: false,
+      to: "/today",
       count: 2,
-      action: () => {
-        navigate("/today");
-      },
     },
     {
       title: "Upcoming",
       icon: <ComingIC />,
-      activeable: false,
-      action: () => {
-        navigate("/upcoming");
-      },
+      to: "/upcoming",
     },
     {
       title: "Filters and Labels",
       icon: <BlocksIC />,
-      activeable: false,
-      action: () => {
-        navigate("/filters-and-labels");
-      },
+      to: "/filters-and-labels",
     },
     {
       title: "Reporting",
       icon: <TrackingIC />,
-      activeable: false,
-      action: () => {
-        navigate("/reporting");
-      },
+      to: "/reporting",
     },
   ];
 
@@ -87,15 +71,16 @@ export const SidebarMenu = () => {
             <MenuItem
               key={item.title}
               iconLeft={item.icon}
-              isActive={itemActive === item.title}
-              {...item}
-              onClick={() => {setItemActive(item.title)}}
+              title={item.title}
+              suffixIcon={item.suffixIcon}
+              count={item.count}
+              action={item.action}
+              to={item.to}
             />
           );
         })}
       </div>
-      {isOpen && <ModalAddTask isOpen={isOpen} setOpen={setOpen}/>}
-
+      {isOpen && <ModalAddTask isOpen={isOpen} setOpen={setOpen} />}
     </>
   );
 };
