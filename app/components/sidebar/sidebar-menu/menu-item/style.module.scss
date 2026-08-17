@@ -1,5 +1,6 @@
 .item {
   @include flexBetween;
+  color: $txt-default;
   margin: 0 10px;
 
   &:first-child {
