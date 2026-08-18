@@ -33,4 +33,18 @@ export const selectTodayTasks = (state: RootState) => {
   });
 };
 
+export const selectUpcomingTasks = (state: RootState) => {
+  const today = getLocalDateString();
+
+  return state.tasks.items
+    .filter((task) => {
+      if (!task.dueDate) return false;
+
+      return getDateOnly(task.dueDate) > today;
+    })
+    .sort((a, b) => {
+      return getDateOnly(a.dueDate!).localeCompare(getDateOnly(b.dueDate!));
+    });
+};
+
 export const selectTaskStatus = (state: RootState) => state.tasks.status;
