@@ -1,6 +1,13 @@
 import type { RootState } from "@/store";
 
-export const selectAllTasks = (state: RootState) => state.tasks.items;
+export const selectAllTasks = (state: RootState) => {
+  return [...state.tasks.items].sort((a, b) => {
+    if (a.isCompleted !== b.isCompleted) {
+      return a.isCompleted ? 1 : -1;
+    }
+    return 0;
+  });
+};
 
 export const selectTaskError = (state: RootState) => state.tasks.error;
 

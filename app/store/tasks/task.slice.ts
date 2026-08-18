@@ -20,7 +20,16 @@ const taskSlice = createSlice({
       state.items = action.payload;
     },
     addTask(state, action: PayloadAction<Task>) {
-      state.items.push(action.payload);
+      const firstCompletedIndex = state.items.findIndex(
+        (task) => task.isCompleted,
+      );
+
+      if (firstCompletedIndex === -1) {
+        state.items.push(action.payload);
+        return;
+      }
+
+      state.items.splice(firstCompletedIndex, 0, action.payload);
     },
     updateTask(state, action: PayloadAction<Task>) {
       const index = state.items.findIndex(
