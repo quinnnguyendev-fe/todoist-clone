@@ -9,7 +9,9 @@ import { PlusIC } from "@/components/icons/plus-ic.icon";
 import { format } from "date-fns";
 import type { Task, TaskState } from "@/api/task.type";
 import { useAppDispatch } from "@/store/hooks";
-import { addTask, updateTask } from "@/store/tasks/task.slice";
+import { addTask, fetchTasks, updateTask } from "@/store/tasks/task.slice";
+import { Spinner } from "@/components/common/spinner";
+import { Error } from "@/components/common/error";
 
 type TaskBoardProps = {
   tasks: Task[];
@@ -21,7 +23,10 @@ export const TaskBoard = ({ tasks, status }: TaskBoardProps) => {
   const [activeId, setActiveId] = useState<string>();
 
   const isLoading = status === "loading";
-  const isEmpty = !isLoading && tasks.length === 0;
+  const isError = status === "failed";
+  const isEmpty = status === "succeeded" && tasks.length === 0;
+  const hasTasks = status === "succeeded" && tasks.length > 0;
+
   const showEmpty = !isEditing && isEmpty;
   const showButtonAddtask =
     !isLoading && ((!isEditing && !isEmpty) || (isEditing && !!activeId));
@@ -113,12 +118,11 @@ export const TaskBoard = ({ tasks, status }: TaskBoardProps) => {
 
   return (
     <div className={styles["board"]}>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && <Spinner />}
+      {isError && <Error onRetry={() => dispatch(fetchTasks())} />}
       {showEmpty && <Empty setEditing={setEditing} />}
 
-      {!isLoading && !isEmpty && (
-        <ul className={styles["board-list"]}>{renderTaskList()}</ul>
-      )}
+      {hasTasks && <ul className={styles["board-list"]}>{renderTaskList()}</ul>}
 
       {isEditing && !activeId && (
         <div className={styles["container"]}>
