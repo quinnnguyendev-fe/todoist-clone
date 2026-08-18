@@ -7,61 +7,59 @@ import { TaskItem } from "@/components/common/task-item";
 import { Button } from "@/components/common/button";
 import { PlusIC } from "@/components/icons/plus-ic.icon";
 import { format } from "date-fns";
-import type { Task } from "@/api/task.type";
+import type { Task, TaskState } from "@/api/task.type";
 import { useAppDispatch } from "@/store/hooks";
 import { addTask, updateTask } from "@/store/tasks/task.slice";
 
 type TaskBoardProps = {
   tasks: Task[];
+  status: TaskState["status"];
 };
 
-export const TaskBoard = ({ tasks }: TaskBoardProps) => {
+export const TaskBoard = ({ tasks, status }: TaskBoardProps) => {
   const [isEditing, setEditing] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<string>();
 
-  const isEmpty = tasks.length === 0;
+  const isLoading = status === "loading";
+  const isEmpty = !isLoading && tasks.length === 0;
   const showEmpty = !isEditing && isEmpty;
   const showButtonAddtask =
-    (!isEditing && !isEmpty) || (isEditing && !!activeId);
+    !isLoading && ((!isEditing && !isEmpty) || (isEditing && !!activeId));
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+
   const handleCreateTask = async ({
     title,
     description,
     date,
     priority,
   }: TaskType) => {
-    
     try {
-
       const newTask = await todoApi.create({
         title,
         description,
         dueDate: date ? format(date, "yyyy-MM-dd") : undefined,
         priority,
       });
-      
-      dispatch(addTask(newTask))
+
+      dispatch(addTask(newTask));
     } catch (e) {
       alert(e);
     }
   };
 
-  const handleUpdateTask = async (
-    id: string,
-    data: TaskType,
-  ) => {
+  const handleUpdateTask = async (id: string, data: TaskType) => {
     try {
       const result = await todoApi.edit(id, {
         title: data.title,
         description: data.description,
-        dueDate: data.date? format(data.date, "yyyy-MM-dd"): undefined,
+        dueDate: data.date ? format(data.date, "yyyy-MM-dd") : undefined,
         priority: data.priority,
       });
 
-      dispatch(updateTask(result))
-      setEditing(false)
-      setActiveId(undefined)
+      dispatch(updateTask(result));
+      setEditing(false);
+      setActiveId(undefined);
     } catch (e) {
       alert(e);
     }
@@ -104,7 +102,7 @@ export const TaskBoard = ({ tasks }: TaskBoardProps) => {
             <TaskItem
               key={_task.id}
               task={_task}
-              
+
               onClickEditTask={handleEditTask}
             />
           );
@@ -115,9 +113,12 @@ export const TaskBoard = ({ tasks }: TaskBoardProps) => {
 
   return (
     <div className={styles["board"]}>
+      {isLoading && <div>Loading...</div>}
       {showEmpty && <Empty setEditing={setEditing} />}
 
-      {!isEmpty && <ul className={styles["board-list"]}>{renderTaskList()}</ul>}
+      {!isLoading && !isEmpty && (
+        <ul className={styles["board-list"]}>{renderTaskList()}</ul>
+      )}
 
       {isEditing && !activeId && (
         <div className={styles["container"]}>

@@ -1,32 +1,15 @@
-import { todoApi } from "@/api";
 import { TaskBoard } from "./task-board";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { setTasks } from "@/store/tasks/task.slice";
-import { selectAllTasks } from "@/store/tasks/task.selector";
+import { useAppSelector } from "@/store/hooks";
+import { selectAllTasks, selectTaskStatus } from "@/store/tasks/task.selector";
+import { useSelector } from "react-redux";
 
 export default function InboxPage() {
-
-  const dispatch = useAppDispatch()
-  const tasks = useAppSelector(selectAllTasks)
-
-  useEffect(() => {
-    const loadTasks = async () => {
-      try {
-        const taskList = await todoApi.getList()
-
-        dispatch(setTasks(taskList))
-      } catch(error) {
-        console.error(error)
-      }
-    }
-
-    loadTasks()
-  }, [dispatch]);
+  const tasks = useAppSelector(selectAllTasks);
+  const status = useSelector(selectTaskStatus);
 
   return (
     <>
-      <TaskBoard tasks={tasks} />
+      <TaskBoard tasks={tasks} status={status} />
     </>
   );
 }
