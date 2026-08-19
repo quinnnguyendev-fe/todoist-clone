@@ -20,11 +20,11 @@ export interface CreateTaskInput {
 }
 
 // Dữ liệu khi update: Cho phép sửa mọi thứ trừ id và ngày tạo
-export type UpdateTaskInput = Partial<Omit<Task, 'id' | 'createdDate'>>;
+export type UpdateTaskInput = Partial<Omit<Task, "id" | "createdDate">>;
 
 export interface TaskFilters {
-  status?: 'completed' | 'uncompleted' | 'all';
-  dateScope?: 'today' | 'overdue' | 'all';
+  status?: "completed" | "uncompleted" | "all";
+  dateScope?: "today" | "overdue" | "all";
   label?: string;
   priority?: number;
   search?: string;
@@ -36,7 +36,12 @@ export interface DeleteTaskResponse {
 }
 
 export type TaskState = {
-    items: Task[],
-    status: 'idle' | 'loading' | 'succeeded' | 'failed',
-    error: string | null
-}
+  items: Task[];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+};
+
+export type TaskGroup = {
+  date: string;
+  tasks: Task[];
+};

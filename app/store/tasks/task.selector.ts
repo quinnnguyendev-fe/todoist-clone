@@ -1,3 +1,4 @@
+import type { TaskGroup } from "@/api/task.type";
 import type { RootState } from "@/store";
 
 export const selectAllTasks = (state: RootState) => {
@@ -15,7 +16,7 @@ const getDateOnly = (date: string) => {
   return date.slice(0, 10);
 };
 
-const getLocalDateString = (date = new Date()) => {
+export const getLocalDateString = (date = new Date()) => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -31,6 +32,54 @@ export const selectTodayTasks = (state: RootState) => {
 
     return getDateOnly(task.dueDate) === today;
   });
+};
+
+export const selectUpcomingTasks = (state: RootState) => {
+  const today = getLocalDateString();
+
+  return state.tasks.items
+    .filter((task) => {
+      if (!task.dueDate) return false;
+
+      return getDateOnly(task.dueDate) > today;
+    })
+    .sort((a, b) => {
+      const dateA = getDateOnly(a.dueDate!);
+      const dateB = getDateOnly(b.dueDate!);
+
+      if (dateA !== dateB) {
+        return dateA.localeCompare(dateB);
+      }
+
+      if (a.isCompleted !== b.isCompleted) {
+        return a.isCompleted ? 1 : -1;
+      }
+
+      return 0;
+    });
+};
+
+export const selectUpcomingTaskGroups = (state: RootState): TaskGroup[] => {
+  const tasks = selectUpcomingTasks(state);
+
+  const groups: TaskGroup[] = [];
+
+  tasks.forEach((task) => {
+    const date = getDateOnly(task.dueDate!);
+
+    const existingGroup = groups.find((group) => group.date === date);
+
+    if (existingGroup) {
+      existingGroup.tasks.push(task);
+    } else {
+      groups.push({
+        date,
+        tasks: [task],
+      });
+    }
+  });
+
+  return groups;
 };
 
 export const selectTaskStatus = (state: RootState) => state.tasks.status;

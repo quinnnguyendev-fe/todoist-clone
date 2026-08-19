@@ -48,6 +48,7 @@ export const TaskBoard = ({ tasks, status }: TaskBoardProps) => {
       });
 
       dispatch(addTask(newTask));
+      setEditing(false);
     } catch (e) {
       alert(e);
     }
